@@ -1,0 +1,5 @@
+title: GStreamer101
+description: GStreamer 101
+theme: null   # 기본 Jekyll 테마 사용 안 함 (직접 구성할 경우)
+markdown: kramdown
+baseurl: "" # 기본 URL

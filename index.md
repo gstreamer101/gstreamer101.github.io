@@ -1,3 +1,11 @@
+---
+layout: default
+title: GStreamer101::Home
+---
+
+# 환영합니다!
+이곳은 GStreamer101의 Pages입니다.
+
 ## gst-docs-ko
 > This document is a Korean translation of the GStreamer basic tutorials. The original documentation can be found in the [GStreamer Official Documentation](https://gstreamer.freedesktop.org/documentation/tutorials/index.html).
 
