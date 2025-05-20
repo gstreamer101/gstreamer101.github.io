@@ -1,0 +1,99 @@
+html, body {
+    max-width: 1400px;
+    margin: 0 auto;
+    font-family: "Noto Sans KR", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+.site-header {
+    border-bottom: 1px solid #ddd;
+    background-color: #fafafa;
+    padding: 1rem 0;
+}
+
+.header-inner {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+}
+
+.site-brand {
+    display: flex;
+    align-items: center;
+}
+
+.logo-img {
+    height: 32px;
+    margin-right: 0.5rem;
+}
+
+.site-title-text {
+    font-weight: bold;
+    font-size: 18px;
+    color: #333;
+}
+
+.site-brand a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.site-nav a {
+    margin-left: 1rem;
+    color: #555;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.site-nav a:hover {
+    text-decoration: underline;
+}
+
+.sponsor-bar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    background-color: #fafafa;
+    border-radius: 8px;
+}
+
+.sponsor-item {
+    border: 1px solid #ccc;
+    padding: 0.5rem;
+    background: #fff;
+    border-radius: 6px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sponsor-item img {
+    height: 100%;
+    max-width: 120px;
+    object-fit: contain;
+}
+
+footer {
+    margin-top: 4rem;
+    padding: 2rem 0;
+    text-align: center;
+    font-size: 14px;
+    color: #999;
+    border-top: 1px solid #ddd;
+}
+
+.copyright {
+    margin-top: 1.5rem;
+    font-size: 12px;
+    color: #aaa;
+}
