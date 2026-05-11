@@ -97,3 +97,220 @@ footer {
     font-size: 12px;
     color: #aaa;
 }
+
+/* Discussions 스타일 */
+.discussions-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+.discussions-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.discussions-header h1 {
+    font-size: 2.5rem;
+    margin: 0 0 0.5rem 0;
+    color: #333;
+}
+
+.discussions-header p {
+    font-size: 1.1rem;
+    color: #666;
+    margin: 0 0 1.5rem 0;
+}
+
+.btn-new-discussion {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: #238636;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.btn-new-discussion:hover {
+    background-color: #2ea043;
+}
+
+.discussions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.discussion-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1.5rem;
+    background: white;
+    transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+.discussion-card:hover {
+    border-color: #238636;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+}
+
+.discussion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    gap: 1rem;
+}
+
+.category-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.8rem;
+    background-color: #f0f0f0;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    color: #555;
+}
+
+.category-emoji {
+    font-size: 1rem;
+}
+
+.discussion-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.vote-count, .comment-count {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.discussion-title {
+    margin: 0 0 0.75rem 0;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.discussion-title a {
+    color: #238636;
+    text-decoration: none;
+}
+
+.discussion-title a:hover {
+    text-decoration: underline;
+}
+
+.discussion-body {
+    color: #666;
+    line-height: 1.6;
+    margin: 0 0 1rem 0;
+    font-size: 0.95rem;
+}
+
+.discussion-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 1px solid #f0f0f0;
+}
+
+.author-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.author-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.author-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.author-name {
+    font-weight: 500;
+    color: #333;
+    font-size: 0.9rem;
+}
+
+.post-date {
+    font-size: 0.8rem;
+    color: #999;
+}
+
+.read-more {
+    color: #238636;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.read-more:hover {
+    text-decoration: underline;
+}
+
+.loading {
+    text-align: center;
+    padding: 2rem;
+    color: #666;
+    font-size: 1rem;
+}
+
+.no-discussions {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: #999;
+    font-size: 1rem;
+    border: 2px dashed #ddd;
+    border-radius: 8px;
+}
+
+.error-message {
+    text-align: center;
+    padding: 2rem;
+    color: #d32f2f;
+    background-color: #ffebee;
+    border-radius: 8px;
+    border: 1px solid #ef5350;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .discussions-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .discussion-card {
+        padding: 1rem;
+    }
+
+    .discussion-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .discussion-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .discussion-title {
+        font-size: 1.1rem;
+    }
+}

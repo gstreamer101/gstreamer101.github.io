@@ -1,0 +1,17 @@
+# OMC (oh-my-claudecode) 상태 파일
+.omc/
+
+# Jekyll
+_site/
+.jekyll-cache/
+.bundle/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
