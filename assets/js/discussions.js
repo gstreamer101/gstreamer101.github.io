@@ -3,59 +3,61 @@ const OWNER = 'gstreamer101';
 const REPO = 'gstreamer101.github.io';
 const DISCUSSIONS_URL = `https://github.com/${OWNER}/${REPO}/discussions`;
 
+// 카테고리 설정
+const FEATURED_CATEGORIES = ['Announcements', 'Polls'];
+const GENERAL_CATEGORIES = ['General', 'Ideas', 'Q&A', 'Show and Tell'];
+
 async function fetchDiscussions() {
-    const query = `
-        query {
-            repository(owner: "${OWNER}", name: "${REPO}") {
-                discussions(first: 20, orderBy: {field: CREATED_AT, direction: DESC}) {
-                    edges {
-                        node {
-                            id
-                            title
-                            body
-                            createdAt
-                            author {
-                                login
-                                avatarUrl
-                            }
-                            category {
-                                name
-                                emoji
-                            }
-                            comments {
-                                totalCount
-                            }
-                            upvoteCount
-                            url
-                        }
-                    }
-                }
-            }
-        }
-    `;
-
     try {
-        const response = await fetch('https://api.github.com/graphql', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ query })
-        });
+        const headers = {
+            'Accept': 'application/vnd.github.v3+json',
+        };
 
-        const data = await response.json();
+        const token = localStorage.getItem('gh_token');
+        if (token) {
+            headers['Authorization'] = `Bearer ${token}`;
+        }
 
-        if (data.errors) {
-            console.error('GraphQL Error:', data.errors);
-            displayError('discussions 로드 중 오류가 발생했습니다.');
+        // 모든 discussions 가져오기 (페이지 단위)
+        const apiUrl = `https://api.github.com/repos/${OWNER}/${REPO}/discussions?per_page=50&sort=created&direction=desc`;
+        const response = await fetch(apiUrl, { headers });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            console.error('API Error Response:', errorData);
+
+            if (response.status === 404) {
+                displayError('Discussions를 찾을 수 없습니다. 저장소가 올바른지 확인하세요.');
+            } else if (response.status === 403) {
+                displayError('API 레이트 제한에 도달했습니다. 잠시 후 다시 시도해주세요.<br><small>GitHub token을 설정하면 제한이 증가합니다.</small>');
+            } else {
+                displayError(`API 오류 (${response.status}): ${errorData.message || '알 수 없는 오류'}`);
+            }
             return;
         }
 
-        const discussions = data.data.repository.discussions.edges;
-        displayDiscussions(discussions);
+        const discussions = await response.json();
+        console.log('Discussions loaded:', discussions);
+
+        if (!Array.isArray(discussions) || discussions.length === 0) {
+            displayNoDiscussions();
+            return;
+        }
+
+        // 카테고리별로 분류
+        const featured = discussions.filter(d =>
+            FEATURED_CATEGORIES.includes(d.category?.name)
+        );
+        const general = discussions.filter(d =>
+            GENERAL_CATEGORIES.includes(d.category?.name) ||
+            (!d.category?.name || !FEATURED_CATEGORIES.includes(d.category?.name))
+        );
+
+        displayLayout(featured, general);
     } catch (error) {
         console.error('Error fetching discussions:', error);
-        displayError('discussions를 불러올 수 없습니다. 나중에 다시 시도해주세요.');
+        const errorDetails = error.message || '알 수 없는 오류';
+        displayError(`discussions를 불러올 수 없습니다.<br><small>오류: ${errorDetails}</small>`);
     }
 }
 
@@ -83,51 +85,98 @@ function truncateText(text, length = 150) {
     return plainText;
 }
 
-function displayDiscussions(discussions) {
-    const container = document.getElementById('discussions-list');
+function createDiscussionCard(discussion) {
+    const categoryEmoji = {
+        'Announcements': '📢',
+        'Polls': '🗳️',
+        'General': '💬',
+        'Ideas': '💡',
+        'Q&A': '❓',
+        'Show and Tell': '🎉'
+    };
 
-    if (discussions.length === 0) {
-        container.innerHTML = '<div class="no-discussions">아직 토론이 없습니다. 첫 번째 토론을 시작해보세요!</div>';
-        return;
-    }
+    const categoryName = discussion.category?.name || '일반';
+    const emoji = categoryEmoji[categoryName] || '📌';
 
-    const discussionsHTML = discussions.map(({ node }) => `
+    return `
         <article class="discussion-card">
             <div class="discussion-header">
                 <div class="category-badge">
-                    ${node.category ? `<span class="category-emoji">${node.category.emoji}</span>` : ''}
-                    <span class="category-name">${node.category ? node.category.name : '일반'}</span>
+                    <span class="category-emoji">${emoji}</span>
+                    <span class="category-name">${categoryName}</span>
                 </div>
                 <div class="discussion-meta">
-                    <span class="vote-count">👍 ${node.upvoteCount}</span>
-                    <span class="comment-count">💬 ${node.comments.totalCount}</span>
+                    <span class="comment-count">💬 ${discussion.comments_count || 0}</span>
                 </div>
             </div>
 
             <h2 class="discussion-title">
-                <a href="${node.url}" target="_blank" rel="noopener noreferrer">
-                    ${node.title}
+                <a href="${discussion.html_url}" target="_blank" rel="noopener noreferrer">
+                    ${discussion.title}
                 </a>
             </h2>
 
-            <p class="discussion-body">${truncateText(node.body)}</p>
+            <p class="discussion-body">${truncateText(discussion.body)}</p>
 
             <div class="discussion-footer">
                 <div class="author-info">
-                    <img src="${node.author.avatarUrl}" alt="${node.author.login}" class="author-avatar">
+                    <img src="${discussion.user.avatar_url}" alt="${discussion.user.login}" class="author-avatar">
                     <div class="author-details">
-                        <span class="author-name">${node.author.login}</span>
-                        <span class="post-date">${formatDate(node.createdAt)}</span>
+                        <span class="author-name">${discussion.user.login}</span>
+                        <span class="post-date">${formatDate(discussion.created_at)}</span>
                     </div>
                 </div>
-                <a href="${node.url}" class="read-more" target="_blank" rel="noopener noreferrer">
-                    토론 보기 →
+                <a href="${discussion.html_url}" class="read-more" target="_blank" rel="noopener noreferrer">
+                    보기 →
                 </a>
             </div>
         </article>
-    `).join('');
+    `;
+}
 
-    container.innerHTML = discussionsHTML;
+function displayLayout(featured, general) {
+    const container = document.getElementById('discussions-list');
+
+    let html = '';
+
+    // 상단: Featured (Announcements, Polls)
+    if (featured.length > 0) {
+        html += '<section class="featured-section">';
+        html += '<h2 class="section-title">📌 주요 공지</h2>';
+        html += '<div class="discussions-grid featured-grid">';
+        featured.forEach(d => {
+            html += createDiscussionCard(d);
+        });
+        html += '</div></section>';
+    }
+
+    // 하단: General (섞인 카테고리들)
+    if (general.length > 0) {
+        html += '<section class="general-section">';
+        html += '<h2 class="section-title">🗨️ 커뮤니티 토론</h2>';
+        html += '<div class="discussions-list-general">';
+        general.forEach(d => {
+            html += createDiscussionCard(d);
+        });
+        html += '</div></section>';
+    }
+
+    if (!html) {
+        displayNoDiscussions();
+        return;
+    }
+
+    container.innerHTML = html;
+}
+
+function displayNoDiscussions() {
+    const container = document.getElementById('discussions-list');
+    container.innerHTML = `
+        <div class="no-discussions">
+            아직 토론이 없습니다.
+            <a href="${DISCUSSIONS_URL}/new" target="_blank">첫 번째 토론을 시작</a>해보세요! 🚀
+        </div>
+    `;
 }
 
 function displayError(message) {

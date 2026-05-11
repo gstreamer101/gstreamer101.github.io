@@ -105,39 +105,40 @@ footer {
     padding: 2rem 1rem;
 }
 
-.discussions-header {
-    text-align: center;
-    margin-bottom: 3rem;
-}
-
-.discussions-header h1 {
-    font-size: 2.5rem;
-    margin: 0 0 0.5rem 0;
-    color: #333;
-}
-
-.discussions-header p {
-    font-size: 1.1rem;
-    color: #666;
-    margin: 0 0 1.5rem 0;
-}
-
-.btn-new-discussion {
-    display: inline-block;
-    padding: 0.75rem 1.5rem;
-    background-color: #238636;
-    color: white;
-    text-decoration: none;
-    border-radius: 6px;
-    font-weight: 500;
-    transition: background-color 0.2s;
-}
-
-.btn-new-discussion:hover {
-    background-color: #2ea043;
-}
 
 .discussions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* 섹션 스타일 */
+.featured-section {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.general-section {
+    margin-top: 2rem;
+}
+
+.section-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+    margin: 0 0 1.5rem 0;
+    padding: 0.5rem 0;
+}
+
+.featured-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.discussions-list-general {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
