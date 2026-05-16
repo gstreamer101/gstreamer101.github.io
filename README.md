@@ -2,6 +2,12 @@
 
 GStreamer 101에 오신 것을 환영합니다. GStreamer와 Git을 마스터하기 위한 완벽한 가이드입니다!
 
+## 💬 Discord 커뮤니티 참여하기
+
+GStreamer 101 커뮤니티와 함께하세요! 질문하고, 경험을 나누고, 다른 학습자들과 네트워킹하세요.
+
+**[👉 Discord 서버에 참여하기](https://discord.gg/NXhHNneQqd)**
+
 ## 📅 오픈소스 컨트리뷰션 아카데미
 
 **Git & GStreamer 프로그램**
