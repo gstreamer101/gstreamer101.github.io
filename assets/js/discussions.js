@@ -46,8 +46,8 @@ async function fetchDiscussions() {
 
         // GitHub Discussions API는 정렬 파라미터를 지원하지 않아 클라이언트에서 정렬
         discussions.sort((a, b) => {
-            const dateA = a.created_at ? new Date(a.created_at).getTime() : 0;
-            const dateB = b.created_at ? new Date(b.created_at).getTime() : 0;
+            const dateA = a.created_at ? (new Date(a.created_at).getTime() || 0) : 0;
+            const dateB = b.created_at ? (new Date(b.created_at).getTime() || 0) : 0;
             return dateB - dateA;
         });
 
