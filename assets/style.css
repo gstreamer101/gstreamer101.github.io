@@ -220,10 +220,13 @@ footer {
 }
 
 .discussion-body img,
-.discussion-body video,
-.discussion-body iframe {
+.discussion-body video {
     max-width: 100%;
     height: auto;
+}
+
+.discussion-body iframe {
+    max-width: 100%;
 }
 
 .discussion-body pre {
