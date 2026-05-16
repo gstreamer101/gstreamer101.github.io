@@ -238,6 +238,7 @@ footer {
     font-size: 1.4rem;
     font-weight: 600;
     color: #333;
+    overflow-wrap: break-word;
 }
 
 .discussion-title a {
