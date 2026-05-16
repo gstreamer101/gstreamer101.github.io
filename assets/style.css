@@ -216,6 +216,7 @@ footer {
     line-height: 1.6;
     margin: 0 0 1rem 0;
     font-size: 0.95rem;
+    overflow-wrap: break-word;
 }
 
 .discussion-footer {
