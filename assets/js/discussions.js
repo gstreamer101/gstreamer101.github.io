@@ -19,7 +19,7 @@ async function fetchDiscussions() {
         }
 
         // 모든 discussions 가져오기 (페이지 단위)
-        const apiUrl = `https://api.github.com/repos/${OWNER}/${REPO}/discussions?per_page=50&sort=created&direction=desc`;
+        const apiUrl = `https://api.github.com/repos/${OWNER}/${REPO}/discussions?per_page=50`;
         const response = await fetch(apiUrl, { headers });
 
         if (!response.ok) {
