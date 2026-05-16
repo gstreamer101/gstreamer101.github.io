@@ -219,6 +219,24 @@ footer {
     overflow-wrap: break-word;
 }
 
+.discussion-body img,
+.discussion-body video,
+.discussion-body iframe {
+    max-width: 100%;
+    height: auto;
+}
+
+.discussion-body pre {
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+.discussion-body table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+}
+
 .discussion-footer {
     display: flex;
     justify-content: space-between;
@@ -316,5 +334,9 @@ footer {
 
     .discussion-title {
         font-size: 1.1rem;
+    }
+
+    .featured-grid {
+        grid-template-columns: 1fr;
     }
 }
