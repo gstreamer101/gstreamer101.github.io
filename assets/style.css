@@ -150,6 +150,7 @@ footer {
     padding: 1.5rem;
     background: white;
     transition: box-shadow 0.2s, border-color 0.2s;
+    min-width: 0;
 }
 
 .discussion-card:hover {
@@ -203,6 +204,7 @@ footer {
 .discussion-title a {
     color: #238636;
     text-decoration: none;
+    overflow-wrap: break-word;
 }
 
 .discussion-title a:hover {
