@@ -56,8 +56,7 @@ async function fetchDiscussions() {
             FEATURED_CATEGORIES.includes(d.category?.name)
         );
         const general = discussions.filter(d =>
-            GENERAL_CATEGORIES.includes(d.category?.name) ||
-            (!d.category?.name || !FEATURED_CATEGORIES.includes(d.category?.name))
+            !FEATURED_CATEGORIES.includes(d.category?.name)
         );
 
         displayLayout(featured, general);
