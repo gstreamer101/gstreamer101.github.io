@@ -190,6 +190,7 @@ footer {
     background: white;
     transition: box-shadow 0.2s, border-color 0.2s;
     min-width: 0;
+    overflow: hidden;
 }
 
 .discussion-card:hover {
