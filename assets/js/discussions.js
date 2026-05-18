@@ -126,9 +126,9 @@ function createDiscussionCard(discussion) {
 
             <div class="discussion-footer">
                 <div class="author-info">
-                    <img src="${discussion.user.avatar_url}" alt="${discussion.user.login}" class="author-avatar">
+                    <img src="${discussion.user?.avatar_url || ''}" alt="${discussion.user?.login || ''}" class="author-avatar">
                     <div class="author-details">
-                        <span class="author-name">${discussion.user.login}</span>
+                        <span class="author-name">${discussion.user?.login || '알 수 없음'}</span>
                         <span class="post-date">${formatDate(discussion.created_at)}</span>
                     </div>
                 </div>
