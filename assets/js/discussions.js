@@ -112,7 +112,7 @@ function createDiscussionCard(discussion) {
                     <span class="category-name">${categoryName}</span>
                 </div>
                 <div class="discussion-meta">
-                    <span class="comment-count">💬 ${discussion.comments_count || 0}</span>
+                    <span class="comment-count">💬 ${discussion.comments || 0}</span>
                 </div>
             </div>
 
